@@ -16,6 +16,9 @@ class TaskController extends Controller
     public function show(int $id)
     {
         $task = Task::find($id);
+        if ($task === null) {
+            abort(404);
+        }
         return view('tasks.show', ['task' => $task]);
     }
 }

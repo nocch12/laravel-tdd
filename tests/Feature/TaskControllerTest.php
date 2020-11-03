@@ -21,4 +21,11 @@ class TaskControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_タスク詳細不正ルーティング()
+    {
+        $response = $this->get('/tasks/0');
+
+        $response->assertStatus(404);
+    }
 }
