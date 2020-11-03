@@ -9,6 +9,9 @@ class ShowTasks extends Controller
 {
     public function __invoke()
     {
-        return "all tasks";
+        $tasks = [
+            (object) ['id' => 10, 'title' => 'テストタスク', 'executed' => false],
+        ];
+        return view('tasks.index', ['tasks' => $tasks]);
     }
 }
