@@ -29,7 +29,9 @@
       <ul>
         @foreach ($tasks as $task)
         <li>
-          {{ $task->title }}
+          <a href="/tasks/{{ $task->id }}">
+            {{ $task->title }}
+          </a>
           <input
             type="checkbox"
             name="checkbox_{{ $task->id }}"
