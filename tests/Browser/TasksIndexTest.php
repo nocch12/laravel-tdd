@@ -15,18 +15,10 @@ class TasksIndexTest extends DuskTestCase
      */
     public function testIndex()
     {
-        try {
-
-            $this->browse(function (Browser $browser) {
-                $browser->visit('/tasks')
-                    ->assertSee('テストタスク')
-                    ->screenshot("tasks_index");
-            });
-        }catch (\Exception $e){
-            echo "\n";
-            echo $e->getMessage();
-            echo "\n";
-            throw $e;
-        }
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/tasks')
+                ->assertSee('テストタスク')
+                ->screenshot("tasks_index");
+        });
     }
 }
