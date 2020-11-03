@@ -25,7 +25,7 @@ class TasksIndexTest extends DuskTestCase
                 ->clickLink('テストタスク')
                 ->waitForLocation('/tasks/2', 1)
                 ->assertPathIs('/tasks/2')
-                ->assertSee('テストタスク');
+                ->assertInputValue('#title', 'テストタスク');
         });
     }
 }

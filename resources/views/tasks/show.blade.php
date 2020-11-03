@@ -21,26 +21,42 @@
     <h2>Tasks Detail</h2>
     <div class="row">
       <div class="col-md-offset-2 col-md-8">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <td>タイトル</td>
-              <td>実行済み</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ $task->title }}</td>
-              <td>
-                <input
-                  type="checkbox"
-                  name="checkbox_{{ $task->id }}"
-                  {!! $task->executed ? 'checked="checked"' : ''!!}
-                >
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <form action="{{route('tasks.update', [$task->id])}}" method="post">
+          @csrf
+          @method('PUT')
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td>タイトル</td>
+                <td>実行済み</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    id="title"
+                    class="form-control"
+                    type="text"
+                    value="{{ $task->title }}"
+                  >
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="checkbox_{{ $task->id }}"
+                    {!! $task->executed ? 'checked="checked"' : ''!!}
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <button class="btn btn-primary" type="submit">
+            更新
+          </button>
+        </form>
       </div>
     </div>
   </div>
