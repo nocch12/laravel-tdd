@@ -39,4 +39,10 @@ class TaskTest extends TestCase
         // 実行完了しているはず
         $this->assertTrue(boolval($task1->executed));
     }
+
+    public function test_タスク詳細のデータを取得()
+    {
+        $task = Task::find(2);
+        $this->assertEquals('テストタスク', $task->title);
+    }
 }

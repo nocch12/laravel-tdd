@@ -8,14 +8,16 @@ use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
 {
-    /**
-     * Get All Tasks Path Test
-     *
-     * @return void
-     */
-    public function test_全てのタスクを取得()
+    public function test_タスク一覧ルーティング()
     {
         $response = $this->get('/tasks');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_タスク詳細ルーティング()
+    {
+        $response = $this->get('/tasks/1');
 
         $response->assertStatus(200);
     }
