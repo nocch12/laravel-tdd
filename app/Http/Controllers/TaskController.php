@@ -21,4 +21,9 @@ class TaskController extends Controller
         }
         return view('tasks.show', ['task' => $task]);
     }
+
+    public function update(int $id)
+    {
+        return redirect()->route('tasks.show', ['id' => $id]);
+    }
 }

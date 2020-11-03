@@ -28,4 +28,13 @@ class TaskControllerTest extends TestCase
 
         $response->assertStatus(404);
     }
+
+    public function test_タスク更新ルーティング()
+    {
+        $data = [];
+
+        $response = $this->put('/tasks/1', $data);
+
+        $response->assertStatus(302);
+    }
 }

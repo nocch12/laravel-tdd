@@ -19,5 +19,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::get('/tasks/{id}', [TaskController::class, 'show'])->where('id', '[0-9]+');
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
+Route::get('/tasks/{id}', [TaskController::class, 'show'])->where('id', '[0-9]+')->name('tasks.show');
+Route::put('/tasks/{id}', [TaskController::class, 'update'])->where('id', '[0-9]+')->name('tasks.update');
