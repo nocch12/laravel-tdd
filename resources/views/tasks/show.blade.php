@@ -39,6 +39,7 @@
                     id="title"
                     class="form-control"
                     type="text"
+                    name="title"
                     value="{{ $task->title }}"
                   >
                 </td>

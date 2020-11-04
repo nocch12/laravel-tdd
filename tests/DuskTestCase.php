@@ -34,6 +34,7 @@ abstract class DuskTestCase extends BaseTestCase
             '--headless',
             '--window-size=1920,1080',
             '--lang=ja-JP',
+            '--no-sandbox',
         ]);
 
         return RemoteWebDriver::create(
