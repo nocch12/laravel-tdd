@@ -71,4 +71,11 @@ class TaskControllerTest extends TestCase
 
         $this->assertDatabaseHas('tasks', $data);
     }
+
+    public function test_新規作成画面ルーティング()
+    {
+        $response = $this->get('/tasks/create');
+
+        $response->assertStatus(200);
+    }
 }
