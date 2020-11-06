@@ -6,6 +6,7 @@ use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class TaskControllerTest extends TestCase
 {
@@ -77,5 +78,54 @@ class TaskControllerTest extends TestCase
         $response = $this->get('/tasks/create');
 
         $response->assertStatus(200);
+    }
+
+    public function test_タイトルなしで新規作成()
+    {
+        $data = [];
+        $response = $this->from('tasks/create')
+            ->post('/tasks', $data);
+
+        $response->assertSessionHasErrors(['title' => 'The title field is required.']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/tasks/create');
+    }
+
+    public function test_タイトル未入力で新規作成()
+    {
+        $data = ['title' => ''];
+        $response = $this->from('tasks/create')
+            ->post('/tasks', $data);
+
+        $response->assertSessionHasErrors(['title' => 'The title field is required.']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/tasks/create');
+    }
+
+    public function test_タイトル最大文字数で新規作成()
+    {
+        $data = ['title' => Str::random(512)];
+
+        $this->assertDatabaseMissing('tasks', $data);
+        $response = $this->post('/tasks', $data);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/tasks');
+
+        $this->assertDatabaseHas('tasks', $data);
+    }
+
+    public function test_タイトル最大文字数プラス1文字で新規作成()
+    {
+        $data = ['title' => Str::random(513)];
+        $response = $this->from('tasks/create')
+            ->post('/tasks', $data);
+
+        $response->assertSessionHasErrors(['title' => 'The title may not be greater than 512 characters.']);
+
+        $response->assertStatus(302)
+            ->assertRedirect('/tasks/create');
     }
 }
