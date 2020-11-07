@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class TasksIndexTest extends DuskTestCase
+class TaskIndexTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
@@ -40,6 +40,17 @@ class TasksIndexTest extends DuskTestCase
                 ->waitForLocation("/tasks/{$this->task->id}", 1)
                 ->assertPathIs("/tasks/{$this->task->id}")
                 ->assertInputValue('#title', 'テストタスク');
+        });
+    }
+
+    public function test_一覧画面から新規作成画面に遷移()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/tasks')
+                ->assertSeeLink('新規作成')
+                ->clickLink('新規作成')
+                ->waitForLocation("/tasks/create")
+                ->assertPathIs("/tasks/create");
         });
     }
 }
