@@ -60,6 +60,15 @@
         </form>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <form action="{{route('tasks.destroy', ['id' => $task->id])}}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">削除</button>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 
