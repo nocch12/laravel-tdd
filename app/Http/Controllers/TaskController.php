@@ -55,7 +55,7 @@ class TaskController extends Controller
         }
 
         if($request->executed) {
-            $fill_data['executed'] = true;
+            $fill_data['executed'] = 1;
         }
 
         if($fill_data) {
@@ -91,8 +91,21 @@ class TaskController extends Controller
 
         $task = Task::create([
             'title' => $request->title,
-            'executed' => false,
+            'executed' => 0,
         ]);
-        return redirect()->route('tasks');
+        return redirect()->route('tasks.index');
+    }
+
+    /**
+     * 削除
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function destroy(int $id)
+    {
+        Task::destroy($id);
+
+        return redirect()->route('tasks.index');
     }
 }

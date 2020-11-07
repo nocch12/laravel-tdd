@@ -19,9 +19,13 @@ Route::get('/', function () {
 });
 
 
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-Route::get('/tasks/{id}', [TaskController::class, 'show'])->where('id', '[0-9]+')->name('tasks.show');
-Route::put('/tasks/{id}', [TaskController::class, 'update'])->where('id', '[0-9]+')->name('tasks.update');
+Route::group(['prefix' => 'tasks', 'as' => 'tasks.'], function () {
+    Route::get('/', [TaskController::class, 'index'])->name('index');
+    Route::get('/{id}', [TaskController::class, 'show'])->where('id', '[0-9]+')->name('show');
+    Route::get('/create', [TaskController::class, 'create'])->name('create');
+    Route::post('/', [TaskController::class, 'store'])->name('store');
+    Route::put('/{id}', [TaskController::class, 'update'])->where('id', '[0-9]+')->name('update');
+    Route::delete('/{id}', [TaskController::class, 'destroy'])->where('id', '[0-9]+')->name('destroy');
+});
 
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+

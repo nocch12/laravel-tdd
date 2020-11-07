@@ -12,12 +12,14 @@ class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $task;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->task = Task::create([
             'title' => 'テストタスク',
-            'executed' => false,
+            'executed' => 0,
         ]);
     }
 
@@ -127,5 +129,17 @@ class TaskControllerTest extends TestCase
 
         $response->assertStatus(302)
             ->assertRedirect('/tasks/create');
+    }
+
+    public function test_タスク削除ルーティング()
+    {
+        $this->assertDatabaseHas('tasks', ['id' => $this->task->id]);
+
+        $response = $this->delete("/tasks/{$this->task->id}");
+
+        $response->assertStatus(302)
+            ->assertRedirect("/tasks");
+
+        $this->assertDatabaseMissing('tasks', $this->task->toArray());
     }
 }
